@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="Console_Hight">690dp</dimen>
+    <dimen name="Console_Text_Size">30sp</dimen>
+</resources>
