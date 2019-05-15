@@ -2,10 +2,6 @@
 
 package com.example.broadcastConsole
 
-fun String.toStringArray() {
-
-}
-
 @JvmName("TOSTRINGBUILDER")
 fun String.toStringBuilder(): StringBuilder {
     return StringBuilder(this)

@@ -3,10 +3,6 @@
                                              xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
                                              android:layout_height="match_parent" android:id="@+id/Constraint">
 
-    <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" android:clipToPadding="false"
-            android:fillViewport="true">
         <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
                       android:orientation="vertical">
             <TableLayout
@@ -84,5 +80,4 @@
                 </TableRow>
             </TableLayout>
         </LinearLayout>
-    </ScrollView>
 </android.support.constraint.ConstraintLayout>

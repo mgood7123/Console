@@ -35,10 +35,10 @@ class GridBuilder(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
         )
-        val layer2 = android.widget.ScrollView(appcon)
-        constraint.addView(layer2, layoutParams)
+//        val layer2 = android.widget.ScrollView(appcon)
         val layer3 = android.widget.LinearLayout(appcon)
-        layer2.addView(layer3, layoutParams)
+        constraint.addView(layer3, layoutParams)
+//        layer2.addView(layer3, layoutParams)
         val layer4 = android.widget.TableLayout(appcon)
         layer3.addView(layer4, layoutParams)
         return layer4

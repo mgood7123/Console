@@ -2,7 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/app/src/main/java/com/example/broadcastConsole/references/android_bootable_recovery" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/app/src/main/java/com/example/broadcastConsole/references/tablelayout" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/app/src/main/res/references/android_bootable_recovery" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/app/src/main/res/references/tablelayout" vcs="Git" />
   </component>
 </project>
