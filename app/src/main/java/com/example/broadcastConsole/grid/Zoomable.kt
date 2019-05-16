@@ -14,19 +14,16 @@ class Zoomable : ScrollView {
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         val child = getChildAt(0) as FontFitTextView
+        Log.e("onSizeChanged", "WIDTH is ${w}")
+        Log.e("onSizeChanged", "HEIGHT is ${h}")
         child.HEIGHT = h
-        child.width = w
+        child.WIDTH = w
         child.ready = true
+        child.DRAWTHREAD()
         super.onSizeChanged(w, h, oldw, oldh)
     }
 
     override fun onDraw(canvas: Canvas?) {
-        // get text view
-        val child = getChildAt(0) as FontFitTextView
-        child.HEIGHT = height
-        child.width = width
-        child.ready = true
-        child.DRAW()
         super.onDraw(canvas)
     }
 
@@ -87,5 +84,4 @@ class Zoomable : ScrollView {
         super.onTouchEvent(ev)
         return true
     }
-
 }
