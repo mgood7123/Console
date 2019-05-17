@@ -1,18 +1,16 @@
 package com.example.broadcastConsole
 
-import android.content.Context
-import android.view.View
-import android.widget.ScrollView
-import android.widget.TextView
+import android.util.Log
+import com.example.broadcastConsole.grid.Terminal
+import com.utils.`class`.extensions.ThreadWaitForCompletion
 import io.realm.Realm
 import io.realm.RealmConfiguration
-import kotlinx.android.synthetic.main.content_console.*
 import java.io.File
-import kotlin.concurrent.thread
 
 @Suppress("MemberVisibilityCanBePrivate")
 class ConsoleSession(
-    private val console: Console
+    val output: Terminal.FontFitTextView,
+    val screen: Terminal.Zoomable
 ) {
 
     inner class TTY() {
@@ -28,14 +26,21 @@ class ConsoleSession(
 
     var initialized = false
 
+    fun CharSequence.update() = this.toString().update()
+    fun CharSequence.updateOverwrite() = this.toString().updateOverwrite()
+
     fun String.update() {
-//        console.textView.append(this)
-//        scrollDown(console, console.scrollView2)
+        ThreadWaitForCompletion(output.mainThread!!) {
+            output.append(this)
+//            scrollDown(console, console.scrollView2)
+        }
     }
 
     fun String.updateOverwrite() {
-//        console.textView.text = this
-//        scrollDown(console, console.scrollView2)
+        ThreadWaitForCompletion(output.mainThread!!) {
+            output.text = this
+//            scrollDown(console, console.scrollView2)
+        }
     }
 
     fun clear() {
@@ -57,11 +62,13 @@ class ConsoleSession(
     fun println(message: String) = print(message + "\n")
 
     fun load() {
+        Log.i("REALM", "load started")
         // print cannot be used in this call
-        if (!initialized) Realm.init(console.applicationContext)
+        if (!initialized) Realm.init(output.mainThread?.applicationContext)
         for (it in session_id) {
-            val path = "${console.filesDir}/$session$it"
+            val path = "${output.mainThread?.filesDir}/$session$it"
             if (File(path).exists()) {
+                Log.i("REALM", "configuration exists")
                 config = RealmConfiguration.Builder()
                     .name("$session$it")
                     .schemaVersion(ConsoleRealmObjectVersion)
@@ -72,12 +79,12 @@ class ConsoleSession(
                 consoleRealm = Realm.getDefaultInstance()
                 consoleRealmObjectInstance(consoleRealm!!).stdout.updateOverwrite()
                 initialized = true
-//                println("configuration exists")
-//                println("configuration initialized: $session$it at $path")
+                Log.i("REALM", "configuration initialized: $session$it at $path")
                 break
             }
         }
         if (config == null) {
+            Log.i("REALM", "configuration does not exist")
             config = RealmConfiguration.Builder()
                 .name("$session${session_id[0]}")
                 .schemaVersion(ConsoleRealmObjectVersion)
@@ -86,21 +93,26 @@ class ConsoleSession(
             consoleRealm = Realm.getDefaultInstance()
             consoleRealmObjectInstance(consoleRealm!!).stdout.updateOverwrite()
             initialized = true
-//            println("configuration does not exist")
-//            println("configuration created: $session${session_id[0]} at ${filesDir.toString()}/$session${session_id[0]}")
+            Log.i("REALM", "configuration created: $session${session_id[0]} at ${output.mainThread?.filesDir.toString()}/$session${session_id[0]}")
         }
+        Log.i("REALM", "load finished")
     }
 
     fun save() {
+        Log.i("REALM", "save started")
         val consoleRealmObject = consoleRealmObjectInstance(consoleRealm!!)
         consoleRealm?.beginTransaction()
-        consoleRealmObject.stdout = ""//console.textView.text.toString()
+        Log.i("REALM", "saving '${output.text.toString()}' to configuration")
+        consoleRealmObject.stdout = output.text.toString()
         consoleRealm?.commitTransaction()
+        Log.i("REALM", "save finished")
     }
 
     fun unload() {
+        Log.i("REALM", "unload started")
         consoleRealm?.close()
         initialized = false
+        Log.i("REALM", "unload finished")
     }
 
 }

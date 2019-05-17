@@ -1,4 +1,4 @@
-package com.example.broadcastConsole
+package com.utils.`class`.extensions
 
 import android.content.Context
 

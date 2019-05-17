@@ -4,20 +4,20 @@ import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 import android.view.View
-import android.widget.ScrollView
+import com.example.broadcastConsole.grid.Terminal
 import kotlin.concurrent.thread
 
 @Suppress("unused")
-fun scrollDown(console: Console, scrollView: ScrollView) = thread {
-    console.runOnUiThread {
+fun scrollDown(scrollView: Terminal.Zoomable) = thread {
+    scrollView.mainThread?.runOnUiThread {
         // in java, the code to be executed is required to be encapsulated in
         // new Runnable() { public void run() { <CODE> } }
         // in kotlin, this does NOT work and will fail
         // see https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions
         // SAM stands for Single Abstract Method
-//        scrollView.post {
-//            scrollView.fullScroll(View.FOCUS_DOWN)
-//        }
+        scrollView.post {
+            scrollView.fullScroll(View.FOCUS_DOWN)
+        }
     }
 }
 

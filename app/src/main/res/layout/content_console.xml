@@ -7,40 +7,4 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/activity_console"
-        tools:context=".Console">
-    <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/recycler_item"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-        <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
-                <TextView
-                        android:text="TextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/textView9"/>
-            </TableRow>
-            <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
-                <TextView
-                        android:text="TextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/textView10"/>
-            </TableRow>
-            <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
-                <TextView
-                        android:text="TextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/textView11"/>
-            </TableRow>
-            <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
-                <TextView
-                        android:text="TextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/textView12"/>
-            </TableRow>
-        </TableLayout>
-    </android.support.v7.widget.RecyclerView>
-</android.support.constraint.ConstraintLayout>
+        tools:context=".Console" android:id="@+id/ConsoleInstance"/>
